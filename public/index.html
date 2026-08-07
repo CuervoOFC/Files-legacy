@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Panel Owner / Admin WhatsApp</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <header>
+      <h2>⚡ Panel de Control</h2>
+   </header>
+
+   <div class="container">
+      <!-- Login / Registro -->
+      <div id="authSection" class="card">
+         <h3>Iniciar Sesión / Registro</h3>
+         <input type="text" id="authName" placeholder="Nombre">
+         <input type="text" id="authPhone" placeholder="Teléfono">
+         <input type="password" id="authPassword" placeholder="Contraseña">
+         <button onclick="register()">Registrarse</button>
+         <button onclick="login()">Iniciar Sesión</button>
+      </div>
+
+      <!-- Panel OWNER (Exclusivo) -->
+      <div id="ownerSection" class="card" style="display:none; border-color: #ff334b;">
+         <h3>👑 PANEL OWNER</h3>
+         
+         <h4>1. Configurar API Key Global</h4>
+         <input type="text" id="apiKeyInput" placeholder="Ingresar API Key de servicio">
+         <button onclick="saveApiKey()">Guardar API Key</button>
+
+         <hr>
+
+         <h4>2. Vincular Bot por Código de WhatsApp</h4>
+         <input type="text" id="botPhoneInput" placeholder="Número del bot (ej: 521234567890)">
+         <button onclick="requestPairing()">Generar Código de Vinculación</button>
+         <h2 id="pairingCodeDisplay" style="color: #25d366; text-align: center;"></h2>
+
+         <hr>
+
+         <h4>3. Gestión de Usuarios y Permisos</h4>
+         <button onclick="loadOwnerUsers()">Cargar Usuarios</button>
+         <div style="overflow-x:auto;">
+            <table style="width:100%; text-align:left; margin-top:10px;">
+               <thead>
+                  <tr>
+                     <th>Nombre</th>
+                     <th>Teléfono</th>
+                     <th>Rol</th>
+                     <th>Acciones</th>
+                  </tr>
+               </thead>
+               <tbody id="ownerUsersTable"></tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+
+   <script src="app.js"></script>
+</body>
+</html>
