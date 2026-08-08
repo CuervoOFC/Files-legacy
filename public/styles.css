@@ -1,0 +1,88 @@
+:root {
+   --bg-primary: #121212;
+   --bg-card: #1e1e1e;
+   --bg-secondary: #2d2d2d;
+   --text-primary: #ffffff;
+   --text-secondary: #aaaaaa;
+   --accent: #25d366;
+   --border-color: #333333;
+}
+
+[data-theme="light"] {
+   --bg-primary: #f4f6f9;
+   --bg-card: #ffffff;
+   --bg-secondary: #e9ecef;
+   --text-primary: #212529;
+   --text-secondary: #6c757d;
+   --accent: #128c7e;
+   --border-color: #dee2e6;
+}
+
+body {
+   background-color: var(--bg-primary);
+   color: var(--text-primary);
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   transition: background 0.3s, color 0.3s;
+}
+
+header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px 20px;
+   background-color: var(--bg-card);
+   border-bottom: 1px solid var(--border-color);
+}
+
+.container {
+   max-width: 900px;
+   margin: 20px auto;
+   padding: 0 15px;
+}
+
+.card {
+   background-color: var(--bg-card);
+   border: 1px solid var(--border-color);
+   border-radius: 8px;
+   padding: 20px;
+   margin-bottom: 20px;
+}
+
+input, button {
+   width: 100%;
+   padding: 10px;
+   margin: 8px 0;
+   box-sizing: border-box;
+   border-radius: 5px;
+   border: 1px solid var(--border-color);
+   background-color: var(--bg-secondary);
+   color: var(--text-primary);
+}
+
+button {
+   background-color: var(--accent);
+   color: #fff;
+   border: none;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+button:hover {
+   opacity: 0.9;
+}
+
+.profile-avatar {
+   width: 90px;
+   height: 90px;
+   border-radius: 50%;
+   object-fit: cover;
+   border: 2px solid var(--accent);
+}
+
+.theme-toggle-btn {
+   width: auto;
+   padding: 8px 12px;
+   margin: 0;
+}
