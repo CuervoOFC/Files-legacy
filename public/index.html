@@ -3,46 +3,100 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Panel Owner / Admin WhatsApp</title>
+   <title>Panel WhatsApp Multi-Rol</title>
    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
    <header>
-      <h2>⚡ Panel de Control</h2>
+      <h2>⚡ Panel Bot WhatsApp</h2>
+      <button class="theme-toggle-btn" id="themeToggle">🌓 Cambiar Tema</button>
    </header>
 
    <div class="container">
-      <!-- Login / Registro -->
+      
+      <!-- Login y Registro -->
       <div id="authSection" class="card">
          <h3>Iniciar Sesión / Registro</h3>
-         <input type="text" id="authName" placeholder="Nombre">
-         <input type="text" id="authPhone" placeholder="Teléfono">
+         <input type="text" id="authName" placeholder="Nombre completo">
+         <input type="text" id="authPhone" placeholder="Teléfono (ej: 521234567890)">
          <input type="password" id="authPassword" placeholder="Contraseña">
          <button onclick="register()">Registrarse</button>
          <button onclick="login()">Iniciar Sesión</button>
       </div>
 
-      <!-- Panel OWNER (Exclusivo) -->
+      <!-- Perfil personal del usuario -->
+      <div id="profileSection" class="card" style="display:none;">
+         <h3>👤 Mi Información</h3>
+         <div style="text-align: center;">
+            <img id="userAvatar" src="https://i.imgur.com/6VBx3io.png" class="profile-avatar"><br>
+            <p><strong>Nombre:</strong> <span id="userNameText"></span></p>
+            <p><strong>Teléfono:</strong> <span id="userPhoneText"></span></p>
+            <p><strong>Rol:</strong> <span id="userRoleBadge" style="font-weight: bold; color: var(--accent);"></span></p>
+            <p><strong>Almacenamiento:</strong> <span id="userStorageText"></span></p>
+         </div>
+         <hr>
+         <h4>Editar Perfil</h4>
+         <input type="text" id="editName" placeholder="Nuevo Nombre">
+         <input type="password" id="editPassword" placeholder="Nueva Contraseña">
+         <input type="text" id="editAvatar" placeholder="URL de la imagen de avatar">
+         <button onclick="updateProfile()">Guardar Cambios</button>
+         <button onclick="logout()" style="background-color: #e53935; margin-top: 10px;">Cerrar Sesión</button>
+      </div>
+
+      <!-- Modal de edición rápida para el Admin -->
+      <div id="adminEditModal" class="card" style="display:none; border-color: #25d366;">
+         <h4>✏️ Editar Usuario</h4>
+         <input type="hidden" id="editUserId">
+         <input type="text" id="adminEditName" placeholder="Nuevo Nombre">
+         <input type="password" id="adminEditPassword" placeholder="Nueva Contraseña">
+         <input type="number" id="adminEditStorage" placeholder="Límite Almacenamiento (MB)">
+         <button onclick="saveUserFromAdmin()">Guardar Cambios</button>
+         <button onclick="closeEditModal()" style="background-color: #757575;">Cancelar</button>
+      </div>
+
+      <!-- PANEL ADMIN -->
+      <div id="adminSection" class="card" style="display:none; border-color: #ff9800;">
+         <h3>🛡️ PANEL ADMINISTRADOR</h3>
+         <h4>1. Vincular Bot por Código de WhatsApp</h4>
+         <input type="text" id="adminBotPhoneInput" placeholder="Número del bot (ej: 521234567890)">
+         <button onclick="requestPairingAdmin()">Generar Código</button>
+         <h2 id="adminPairingCodeDisplay" style="color: #25d366; text-align: center;"></h2>
+         <hr>
+         <h4>2. Gestión de Usuarios</h4>
+         <button onclick="loadAdminUsers()">🔄 Actualizar Lista</button>
+         <div style="overflow-x:auto; margin-top: 10px;">
+            <table style="width:100%; text-align:left;">
+               <thead>
+                  <tr>
+                     <th>Nombre</th>
+                     <th>Teléfono</th>
+                     <th>Rol</th>
+                     <th>Espacio</th>
+                     <th>Acción</th>
+                  </tr>
+               </thead>
+               <tbody id="adminUsersTable"></tbody>
+            </table>
+         </div>
+      </div>
+
+      <!-- PANEL OWNER -->
       <div id="ownerSection" class="card" style="display:none; border-color: #ff334b;">
          <h3>👑 PANEL OWNER</h3>
-         
          <h4>1. Configurar API Key Global</h4>
-         <input type="text" id="apiKeyInput" placeholder="Ingresar API Key de servicio">
+         <input type="text" id="apiKeyInput" placeholder="Ingresar API Key global">
          <button onclick="saveApiKey()">Guardar API Key</button>
-
          <hr>
-
-         <h4>2. Vincular Bot por Código de WhatsApp</h4>
+         <h4>2. Vincular Bot por Código</h4>
          <input type="text" id="botPhoneInput" placeholder="Número del bot (ej: 521234567890)">
-         <button onclick="requestPairing()">Generar Código de Vinculación</button>
+         <button onclick="requestPairing()">Generar Código</button>
          <h2 id="pairingCodeDisplay" style="color: #25d366; text-align: center;"></h2>
-
          <hr>
-
-         <h4>3. Gestión de Usuarios y Permisos</h4>
+         <h4>3. Gestión de Permisos y Roles</h4>
          <button onclick="loadOwnerUsers()">Cargar Usuarios</button>
-         <div style="overflow-x:auto;">
-            <table style="width:100%; text-align:left; margin-top:10px;">
+         <div style="overflow-x:auto; margin-top:10px;">
+            <table style="width:100%; text-align:left;">
                <thead>
                   <tr>
                      <th>Nombre</th>
@@ -55,6 +109,7 @@
             </table>
          </div>
       </div>
+
    </div>
 
    <script src="app.js"></script>
